@@ -47,25 +47,13 @@ public class MainController {
 	 
 	 
 	 @GetMapping("/songs")
-	    public String songs(Model model, String songs) {
-	        
-	        songs = "";
-	        
-	        for (Song s : getBestSongs()) {
-	            
-	            if(s.getId() < getBestSongs().size()) {
-	                
-	                songs += s.getTitolo() + ", ";
-	                
-	            } else {
-	                songs += s.getTitolo();
-	            }
-	        }
-	        
+	    public String songs(Model model) {
+	        List<Song> songs = getBestSongs();
 	        model.addAttribute("songs", songs);
-	        
 	        return "songs";
 	    }
+	 
+	 
 	 
 //	 metodi per movies
 	 private List<Movie> getBestMovies(){
@@ -88,66 +76,77 @@ public class MainController {
 	        movies.add(m5);
 	        
 	        return movies;
+	        
+	        
 	    }
-	 
 	 @GetMapping("/movies")
-	    public String movies(Model model, String movies) {
-	        
-	        movies = "";
-	        
-	        for (Movie m : getBestMovies()) {
-	            
-	            if(m.getId() < getBestMovies().size()) {
-	                
-	                movies += m.getTitolo() + ", ";
-	                
-	            } else {
-	                movies += m.getTitolo();
-	            }
-	        }
-	        
+	    public String movies(Model model) {
+	        List<Movie> movies = getBestMovies();
 	        model.addAttribute("movies", movies);
-	        
 	        return "movies";
 	    }
+	 
+	 
+//	 @GetMapping("/movies")
+//	    public String movies(Model model, String movies) {
+//	        
+//	        movies = "";
+//	        
+//	        for (Movie m : getBestMovies()) {
+//	            
+//	            if(m.getId() < getBestMovies().size()) {
+//	                
+//	                movies += m.getTitolo() + ", ";
+//	                
+//	            } else {
+//	                movies += m.getTitolo();
+//	            }
+//	        }
+//	        
+//	        model.addAttribute("movies", movies);
+//	        
+//	        return "movies";
+//	    }
 	 
 	 
 	 
 //	 metodi passaggio id movie
 	 @GetMapping("/movies/{id}")
 		
-		public String showMovie(Model model, String movie,
+		public String showMovie(Model model,
 			  @PathVariable int id) {
-		 for (Movie m : getBestMovies()) {
-	            
+		 List<Movie> movies = getBestMovies();
+	        for (Movie m : movies) {
 	            if(m.getId() == id) {
-	            	movie=m.getTitolo();
+	                model.addAttribute("id", id);
+	                model.addAttribute("movie", m);
+
+	                return "show-movie";
 	            }
-	                     
 	        }
-			model.addAttribute("id", id);
-			model.addAttribute("movie", movie);
-			
-			return "show-movie";
-			
+	        return "Film non trovato";
 		}
+	 
+
 	 
 //	 metodi passaggio id song
 	 @GetMapping("/songs/{id}")
 		
-		public String showSong(Model model, String song,
+		public String showSong(Model model, 
 			  @PathVariable int id) {
 		 for (Song s : getBestSongs()) {
 	            
 	            if(s.getId() == id) {
-	            	song=s.getTitolo();
+	            	model.addAttribute("id", id);
+	            	model.addAttribute("song",s);
+	            	return "show-song";
 	            }
+	            
 	                     
-	        }
-			model.addAttribute("id", id);
-			model.addAttribute("song", song);
+	        }return "Canzone non trovata";
 			
-			return "show-song";
+			
+			
 			
 		}
 	 

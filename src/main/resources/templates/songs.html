@@ -2,19 +2,24 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css} "/>
 <title>Insert title here</title>
 </head>
 <body>
-	 <h1>Best Songs Of The Year</h1>
-	 <ul>
-		 <li>
-			 [[ ${songs} ]]
-		 </li>
-	 </ul>
-   
-    <button>
-        <a href="/">home</a>
-    </button>
+    <div class="container">
+        <h1>Best Songs Of The Year</h1>
+        
+        <ul class="list-group">
+            <!-- Utilizzo di Thymeleaf per iterare sulla lista di songs -->
+            <li th:each="song : ${songs}" class="list-group-item">
+                <!-- Visualizzazione delle informazioni della canzone-->
+                <a th:href="@{/songs/{id}(id=${song.id})}" th:text="${song.titolo}"></a>
+            </li>
+        </ul>
 
+        <button class="btn">
+            <a href="/">Home</a>
+        </button>
+    </div>
 </body>
 </html>
