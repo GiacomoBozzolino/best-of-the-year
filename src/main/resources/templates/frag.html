@@ -6,11 +6,20 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<nav th:fragment class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">Home</a>
-    <a class="navbar-brand" href="/movies">Movies</a>
-    <a class="navbar-brand" href="/songs">Songs</a>
-</nav>
+	<div th:fragment class=" d-flex border border-black">
+        <div class=" border-end border-black p-3">
+            Best of
+        </div>
+        <div class=" border-end border-black p-3">
+            
+            <a class="btn" href="/movies">Movies</a>
+            <a class="btn"href="/songs">Songs</a>
+        </div>
+        <div class="  p-3">
+            <a class="btn" href="/">Home</a>
+        </div>
+    
+    </div>
 
 </body>
 </html>
